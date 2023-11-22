@@ -63,7 +63,7 @@ void logging(char *x) {
     return;
 }
 
-int main() {
+int main(int argc, char **argv) {
     initscr();
     clear();
     noecho();
@@ -73,11 +73,14 @@ int main() {
     char *buf = NULL;
     coord_x = -2.0;
     coord_y = -2.0;
+    buf = malloc(startx*starty*sizeof(char)); //gives an address at least
     do {
-        startx = COLS;
-        starty = LINES;
-        buf = malloc(startx*starty*sizeof(char));
-        for(unsigned long i = 0; i < startx*starty*sizeof(char); i++) buf[i] = ' ';
+        if(startx != COLS || starty != LINES) { //changed terminal screen size. maybe `realloc` next time?
+            startx = COLS;
+            starty = LINES;
+            free(buf);
+            buf = malloc(startx*starty*sizeof(char));
+        }
         /*
            for(int i = 0; i < startx; i++) {
            buf[i] = '+';
@@ -109,12 +112,15 @@ int main() {
                 break;
             case 'z':
                 offset_mand -= 0.1;
+                coord_x += 0.05;
+                coord_y += 0.05;
                 break;
             case 'x':
                 offset_mand += 0.1;
+                coord_x -= 0.05;
+                coord_y -= 0.05;
                 break;
         }
-        free(buf);
     } while (ch != 'q');
     endwin();
     return 0;
