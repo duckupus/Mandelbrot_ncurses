@@ -74,12 +74,18 @@ int main(int argc, char **argv) {
     coord_x = -2.0;
     coord_y = -2.0;
     buf = malloc(startx*starty*sizeof(char)); //gives an address at least
+    if(buf == NULL) {
+        perror("Malloc");
+    }
     do {
         if(startx != COLS || starty != LINES) { //changed terminal screen size. maybe `realloc` next time?
             startx = COLS;
             starty = LINES;
             free(buf);
             buf = malloc(startx*starty*sizeof(char));
+            if(buf == NULL) {
+                perror("Malloc");
+            }
         }
         /*
            for(int i = 0; i < startx; i++) {
