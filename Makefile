@@ -1,8 +1,8 @@
 CC := gcc
-CFLAGS := -Wall -Wextra
+CFLAGS := -Wall -Wextra -O3
 SRC := main.c
 
-LIB := ncurses
+LIB := ncurses gmp
 LIBS := $(LIB:%=-l%)
 
 DEST := Mandelbrot
