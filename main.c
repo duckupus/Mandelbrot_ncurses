@@ -45,23 +45,25 @@ void modify_arr(const mpf_t real, const mpf_t imag, char *buf) {
     int k = 0;
     const int maxiter = 255;
     mpf_t tmpimag;
-    mpf_init(tmpimag);
     mpf_t tmpreal;
+    mpf_t u;
+    mpf_t v;
+    mpf_t u2;
+    mpf_t v2;
+    mpf_t cmp;
+    mpf_t tmp;
+
+    mpf_init(tmpimag);
     mpf_init(tmpreal);
 
-    mpf_t u;
     mpf_init(u);
-    mpf_t v;
     mpf_init(v);
-    mpf_t u2;
     mpf_init(u2);
-    mpf_t v2;
     mpf_init(v2);
 
-    mpf_t cmp;
     mpf_init(cmp);
-    mpf_t tmp;
     mpf_init(tmp);
+
     for(unsigned long int y = 0; y < starty; y++) {
         mpf_mul_ui(tmpimag, dy, y);
         mpf_sub(tmpimag, bigimag, tmpimag);
